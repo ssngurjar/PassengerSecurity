@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Yatri Madad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+
+  <style>
+  * {
+    box-sizing: border-box;
+	}
+	ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+	}
+
+li {
+    float: left;
+	}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #808080;
+	color: orange;
+    
+	}
+
+.container3 {
+    border-radius:1;
+    background-color:#FFFFFF;
+  width:100%;
+  height:100px;
+  margin-top:0px;
+}
+
+	.container {
+    border-radius:1;
+    background-color:#C0C0C0;
+  width:100%;
+  margin-top:0px;
+}
+.container2 {
+    border-radius:1;
+    background-color:#C0C0C0;
+  width:100%;
+  margin:20px;
+}
+
+.col-75 {
+    float: left;
+    width: 70%;
+    margin-top: 6px;
+}
+
+.col-25 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+	margin-left: 6px;
+	
+	}
+  p{
+	margin-left:8px;
+	padding:4px;
+	}
+	
+	.btn-default{
+	width:150px;
+	
+	}
+	.btn-default:hover{
+	background-color:#FF7F50;
+	width:160px;
+	}
+	.tech-slideshow {
+  height: 600px;
+  width: 800px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.tech-slideshow > div {
+  height: 100%;
+  width: 2526px;
+  background: url(./images/dc.jpg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  height: 100%;
+  transform: translate3d(0, 0, 0);
+}
+.tech-slideshow .mover-1 {
+  animation: moveSlideshow 12s linear infinite;
+}
+.tech-slideshow .mover-2 {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  background-position: 0 -200px;
+  animation: moveSlideshow 15s linear infinite;
+}
+.tech-slideshow:hover .mover-2 {
+  opacity: 1;
+}
+
+@keyframes moveSlideshow {
+  100% { 
+    transform: translateX(-66.6666%);  
+  }
+}
+    
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+
+  </style>
+</head>
+<body>
+	<div class="container3" >
+          <h1 align="center" style="text-shadow: 2px 2px #FF7F50;"><font  color="#000000" size="18" face="Bahnschrift Condensed"><b>YATRI MADAD</b></font></h1>
+	</div>
+	<ul>
+	<font  color="#000000" face="Bahnschrift Condensed" size="4">
+	<li><a class="active" href="#home">Home</a></li>
+	<li><a href="#about">About</a></li>
+	</font>
+	</ul>
+	
+	<div class="container">
+	<div class="container2">
+	<font  color="#000000" face="Bahnschrift Condensed" size="4">
+	<div class="row">
+	<div class="col-75">
+      <h1>Welcome to Yatri Madad</h1>
+      <h2>Yatri Madad is concerned with facilitating passengers to file an online FIR for any crime or inconvinience faced during journey.</h2> 
+      <p>Indian Railways serve nearly 23 million
+		passengers every day therefore security and
+		safety of these passengers especially women
+		and other vulnerable sections of society is of
+		paramount importance to the system.
+		The maintenance of law & order in
+		railways and railway premises is the
+		responsibility of concerned State Police
+		whereas the security of passengers and their
+		belongings in the running trains and railway
+		premises is the shared responsibility of the
+		Railway Protection Force (RPF) and the
+		Government Railway Police (GRP).
+		This portal provides the facility to file an instant FIR to be served by the GRP on the next hault. </p>
+     
+	  <h3>Click on one of the below options to file an FIR:</h3>
+	  <font  color="#FFFFFF" size="3" face="Bahnschrift Condensed" >
+	  <p><a class="btn btn-default btn-lg"  href="/reservedweb" role="button">Reserved</a><font color="black">(for reserved seats)</font></p>
+      <p><a class="btn btn-default btn-lg"  href="/unreservedweb" role="button">General</a></p>
+      <p><a class="btn btn-default btn-lg" href="/checkstatusweb" role="button">Check Status</a><font color="black">(to check status of your FIR)</font></p>
+	  <p><a class="btn btn-default btn-lg" href="/helplineweb" role="button">Helpline Number</a>
+	  
+	  </font>
+	  </div>
+	  <div class="col-25">
+		<div class="tech-slideshow">
+		<div class="mover-1"></div>
+		<div class="mover-2"></div>
+		</div>
+		</div>
+	  </div>
+	  </div>
+	  </div>
+	  </font>
+</body>
+</html>

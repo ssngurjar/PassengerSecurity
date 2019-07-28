@@ -1,0 +1,336 @@
+
+<!-- saved from url=(0049)file:///C:/Users/hp/Desktop/passsec/reserved.html -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> Reserved </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+	
+<style>
+ * {
+    box-sizing: border-box;
+}
+
+input , textarea {
+    width: 60%;
+	padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+select{
+    width: 48%;
+	padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit],input[type=button] {
+    background-color: #000080;
+    color: white;
+    padding: 12px;
+	width: 100px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+	}
+input[type=submit]:hover,input[type=button]:hover {
+    background-color: #31C9FE;
+}
+body {
+    background-color: #b9deff;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #ecf6ff;
+    padding: 20px;
+}
+.col-25 {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+	text-align:center;
+	
+}
+
+.col-75 {
+    float: left;
+    width: 70%;
+    margin-top: 6px;
+	text-align:center;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+ h1, input[type=submit],input[type=button] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+#INCON,#CTYPE {
+    display: none;
+}
+
+</style>
+   
+<script type="text/javascript"> 
+  var geocoder;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+} 
+//Get the latitude and the longitude;
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+     document.getElementById("CURRENTLOCATION").value=(lat+","+lng);
+}
+
+function errorFunction(){
+    alert("Geocoder failed");
+}
+
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+	  }
+	/*function  ShowTypeOfProblem()
+	{ //alert("adnnc");
+	var problem=getElementById('PROBLEMTYPE').value;
+			if (problem=='CRIME'){
+		$('CTYPE').show;
+		//$('UNCON').hide;}
+	else if (problem=='INCONVINIENCE')
+		{$('UNCON').show;
+		//$('CTYPE').hide;
+		}
+	}*/
+
+
+ function submitDetails(){
+   	
+   	var PNR=document.getElementById('PNR').value;var fullname=document.getElementById('FNAME').value;
+   	var phone=document.getElementById('PHONENO').value;var loc=document.getElementById('CURRENTLOCATION').value;
+   	var nexthalt=document.getElementById('NEXTHALT').value;var crimetype=document.getElementById('CRIMETYPE').value;
+   	var crimedetails=document.getElementById('CRIMEDETAILS').value;
+	
+   arr={"PNR":PNR,"fullname":fullname,"phone":phone,"loc":loc,"nexthalt":nexthalt,"crimetype":crimetype,"crimedetails":crimedetails};
+   	 $.post("./reservedweb",arr,
+        function(data)
+        {
+          alert(data.message+"\nPlease remember complaint Id for furthur use");
+        });
+
+   }
+function getRoute(){
+   	var PNR=document.getElementById('PNR').value;
+   	arr1={"PNR":PNR};
+   	 $.post("./getroute",arr1,
+        function(rows)
+        {
+        	
+        var count = Object.keys(rows).length;
+        var output = document.getElementById('NEXTHALT');
+                    for (var i=0; i<count; i++) {
+                 // document.getElementById('NEXTHALT').value+='<option value="'+rows[i]+'">"'+rows[i]+'"</option>';
+                 output.innerHTML+='<option value="'+rows[i]+'">"'+rows[i]+'"</option>';}
+  
+        });
+   }
+
+function uploadImage(){
+   	
+   	 $.post("./file/upload",
+        function(rows)
+        {
+        	alert(rows.message);
+  
+        });
+   }
+ function  myfun(){
+ var mobno=document.getElementById('mobile_no').value;
+ if(mobno=="")
+ {document.getElementById('message').innerHTML="*please enter mobile number";
+ return false;}
+ if(mobno.length<10)
+ {document.getElementById('message').innerHTML="*mobile number should be 10 digit";
+ return false;}
+ } 
+ function goBack() {
+    window.history.back()
+}
+
+</script> 
+</head>
+<body onload="initialize()">
+<h1 align="center"><font size="8" face="Times New Roman" color="#000080"><b>Fill Your Details</b></font></h1>
+<div class="container">
+	<fieldset>
+	<font face="Times New Roman" color="#000080" size="4">
+	<legend ><b>Personal information:</b></legend>
+   <div class="row">
+     <div class="col-25">
+		<label for="PNR">Enter PNR: </label>
+     </div>
+	 <div class="col-75">
+		<input type="text" name="PNR" id="PNR" maxlength="10"><br><br>
+	 </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="FullName">Full name:    </label>
+     </div>
+	 <div class="col-75">
+		<input type="text" name="fullname" id="FNAME"><br><br>
+     </div>
+	</div>
+	
+	<div class="row">
+     <div class="col-25">
+		<label for="PhoneNo">Phone No :</label>
+    (enter the phone no. that you have with you at present)
+	  </div>
+	 <div class="col-75"><input _ngcontent-c17="" id="PHONENO" maxlength="10" name="phone" required="" restrict-to="[0-9]" size="15" type="text" placeholder="Phone" style="width: 60%, padding: 8px, border: 1px solid #ccc,   border-radius: 4px;">
+		<span id="message"></span><br><br>
+	  </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="loc">Current Location:</label>
+     </div>
+	 <div class="col-75">
+		<input type="text" name="loc" id="CURRENTLOCATION"><br><br>
+	   </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="Next Halt">Next Halt:</label>
+     </div>
+	 <div class="col-75">
+		<input type="submit" value="Next Halt" onclick="getRoute()" class="btn btn-info" >
+		<select name="nexthalt" id="NEXTHALT">
+		</select>
+	 </div>
+	</div>
+</font></fieldset><font face="Times New Roman" color="#000080" size="4"> 
+<br><br>
+<fieldset> 
+    	<legend><b>Complaint Details:</b></legend>
+		<div class="row">
+		<div class="col-25">	
+			<label for="typeofProblem">Type of Problem:</label>
+		</div>
+		<div class="col-75">
+		<select id="PROBLEMTYPE" onchange="ShowProblemType(this)">
+			<option value=""></option>
+			<option value="CRIME">CRIME</option>
+			<option value="INCONVINIENCE">INCONVINIENCE</option>
+    	
+	</select><br><br>
+	</div>
+	</div>
+</select>
+<script type="text/javascript">
+    function ShowProblemType(element) {
+	//alert(element);    
+	document.getElementById('CTYPE').style.display = element.value=='CRIME' ? 'block' : 'none';
+
+	document.getElementById('INCON').style.display = element.value=='INCONVINIENCE' ? 'block' : 'none';		
+	}
+</script>
+	  
+	  <div class="row" id="CTYPE">
+		<div class="col-25">	
+			<label for="typeofcrime">Type of Crime:</label>
+		</div>
+		<div class="col-75">
+		<select name="crimetype" id="CRIMETYPE">
+		<option value="fight">fight</option>
+		<option value="murder">murder</option>
+		<option value="attempt to murder">attempt to murder</option>
+		<option value="crime against women other than rape">crime against women other than rape</option>
+		<option value="rape">rape</option>
+		<option value="kidnapping">kidnapping</option>
+		<option value="robbery">robbery</option>
+		<option value="drugging">drugging</option>
+		<option value="riot">riot</option>
+		<option value="crime breech of trust">crime breech of trust</option>
+		<option value="fight">fight</option>
+		<option value="-">other</option>
+		</select><br><br>
+	</div>
+	</div>
+	
+	<div class="row" id="INCON">
+		<div class="col-25">	
+			<label for="typeofinconvinience">Type of Inconvinience:</label>
+		</div>	
+		<div class="col-75">
+		<select name="inconvinience" id="INCONVINIENCE" value="select2">
+		<option value="platform not clean">Platform Not Clean </option>
+		<option value="no water in train">No water supply</option>
+		<option value="attempt to murder"></option>
+		<!--<option value="crime against women other than rape">crime against women other than rape</option>
+		<option value="rape">rape</option>
+		<option value="kidnapping">kidnapping</option>
+		<option value="robbery">robbery</option>
+		<option value="drugging">drugging</option>
+		<option value="riot">riot</option>
+		<option value="crime breech of trust">crime breech of trust</option>
+		<option value="fight">fight</option>
+		<option value="-">other</option>!-->
+		</select><br><br>
+	</div>
+	</div>
+    <div class="row">
+     <div class="col-25">	
+	 <label for="CrimeDetails">Crime Deatils(do specify necessary details eg. no. of person,reason behind crime etc):</label>
+     </div>
+	 <div class="col-75">
+	<textarea id="CRIMEDETAILS" name="crimedetails" placeholder="Write crime details.." style="height:100px"></textarea><br>
+	 </div>
+	</div>
+ </fieldset>
+ <font face="Times New Roman" color="#000080" size="4">
+ <form id="fileUploader" enctype="multipart/form-data" action="file/Upload/" method="post">
+ <div class="row">
+	<div class="col-25">	
+	   <label for="UploadFile">Upload Image</label> 
+	</div>
+	 <div class="col-75">
+	 <input type="file" name="imgUploader"  style="margin-left: 8 pix" multiple />
+     <input type="submit" value="Upload"  class="btn btn-info" style="float:right;">
+	 </div> 
+</div>
+</form>
+ </font>
+ <div class="row">
+    <br><br><input type="button" class="btn btn-info" onclick="goBack()" value="Cancel" id="back" ></button>  
+    <input type="submit" value="Submit" onclick="submitDetails()" class="btn btn-info" style="float:right;">
+    </div>
+ 
+
+</font></div>
+
+
+</body></html>

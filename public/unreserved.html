@@ -1,0 +1,248 @@
+<html>
+<head>
+<title> UnReserved </title>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.dev.js"></script>
+<style>
+ * {
+    box-sizing: border-box;
+}
+
+input , textarea {
+    width: 60%;
+	padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+select{
+    width: 48%;
+	padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit],input[type=button]  {
+    background-color: #000080;
+    color: white;
+    padding: 12px;
+	width: 100px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+	margin:5px;
+	}
+input[type=submit]:hover ,input[type=button]:hover {
+    background-color: #31C9FE;
+}
+body {
+    background-color: #b9deff;
+
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #ecf6ff;
+    padding: 20px;
+}
+.col-25 {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+	
+}
+
+.col-75 {
+    float: left;
+    width: 70%;
+    margin-top: 6px;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+</style>
+   
+<script type="text/javascript"> 
+  var geocoder;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+} 
+//Get the latitude and the longitude;
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+     document.getElementById("loc").value=(lat+","+lng);
+	//codeLatLng(lat, lng)
+	//alert(lat + " " + lng)
+}
+
+function errorFunction(){
+    alert("Geocoder failed");
+}
+
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+  }
+   
+ function goBack() {
+    window.history.back()
+}
+</script> 
+</head>
+<body onload="initialize()">
+	<h1 align="center"><font size="8" face="Times New Roman" color="#000080"><b>Fill Your Details</b></font></h1>
+	<font size="4" face="Times New Roman" color="#000080">
+	<div class="container">
+
+	<form action="unreserved" name="form2" method="post">
+	<fieldset>
+    <legend><b>Personal information:</b></legend>
+		<div class="row">
+     <div class="col-25">
+		<label for="FullName">Full name:    </label>
+     </div>
+	 <div class="col-75">
+		<input type="text" name="fullname"><br><br>
+     </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="TrainNo">Train No:   </label>
+     </div>
+	 <div class="col-75">
+		<input type="number" name="trainno" maxlength="5"><br><br>
+	 </div>
+	 </div>
+	<div class="row">
+     <div class="col-25">
+		<label for="berth">Berth:</label>
+	</div>
+	 <div class="col-75">
+		<input type="text" name="berth" maxlength="3"><br><br>
+	 </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="Source">Source:</label>
+	 </div>
+	 <div class="col-75">
+		<input type="text" name="source"><br><br>
+     </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="Destination">Destination:</label>
+     </div>
+	 <div class="col-75">
+		<input type="text" name="destination"><br><br>
+	 </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="PhoneNo">Phone No :</label>
+    (enter the phone no. that you have with you at present)
+	  </div>
+	 <div class="col-75">
+		<input type="number" name="phone" maxlength="10" size="10"><br><br>
+	  </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="loc">Current Location:</label>
+     </div>
+	 <div class="col-75">
+		<input type="text" name="loc" id="loc"><br><br>
+	   </div>
+	</div>
+	<div class="row">
+     <div class="col-25">
+		<label for="Next Halt">Next Halt:</label>
+     </div>
+	 <div class="col-75">
+		<button type="button" class="btn btn-info" id="new">get next halt</button>  
+		<select name="nexthalt" id="output">
+		</select>
+	 </div>
+	</div>
+	</font>	
+		
+	</fieldset> 
+	<br><br>
+	<fieldset> <font size="4" face="Times New Roman" color="#000080">
+		<legend><b>Complaint Details:</b></legend>
+	   <div class="row">
+		<div class="col-25">	
+			<label for="typeofcrime">Type of Crime:</label>
+		</div>
+		<div class="col-75">
+		<select name="crimetype">
+		<option value="fight">fight</option>
+		<option value="murder">murder</option>
+		<option value="attempt to murder">attempt to murder</option>
+		<option value="crime against women other than rape">crime against women other than rape</option>
+		<option value="rape">rape</option>
+		<option value="kidnapping">kidnapping</option>
+		<option value="robbery">robbery</option>
+		<option value="drugging">drugging</option>
+		<option value="riot">riot</option>
+		<option value="crime breech of trust">crime breech of trust</option>
+		<option value="fight">fight</option>
+		<option value="-">other</option>
+		</select><br><br>
+	</div>
+	</div>
+	<div class="row">
+     <div class="col-25">	
+		<label for="other">other:</label>
+     </div>
+	 <div class="col-75">
+		   <input type="text" id="other" name="other">
+		<br>
+	 </div>
+	</div>
+    <div class="row">
+     <div class="col-25">	
+	 <label for="CrimeDetails">Crime Deatils(do specify necessary details eg. no. of person,reason behind crime etc):</label>
+     </div>
+	 <div class="col-75">
+	<textarea id="CrimeDetails" name="crimedetails" placeholder="Write crime details.." style="height:100px"></textarea><br>
+	 </div>
+	</div>
+ </fieldset>
+ <div class="row">
+    <br><br>  <input type="button" class="btn btn-info" onclick="goBack()" value="Cancel" id="back" >  <input type="submit" value="Submit" class="btn btn-info">
+    </div>
+</font>
+</form>
+</body>
+ <script src="/front.js"></script>
+
+</html>

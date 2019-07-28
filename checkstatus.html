@@ -1,0 +1,116 @@
+<html>
+<head>
+<title> Check Status </title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.dev.js"></script>
+   <script src="/socket.io/socket.io.js"></script>
+   <script src="jquery.min.js"></script>
+<style>
+ * {
+    box-sizing: border-box;
+}
+
+input , textarea {
+    width: 30%;
+	padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+select{
+    width: 48%;
+	padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit],input[type=button]  {
+    background-color: #000080;
+    color: white;
+    padding: 12px;
+	width: 100px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+	margin:5px;
+	}
+input[type=submit]:hover ,input[type=button]:hover {
+    background-color: #31C9FE;
+}
+body {
+    background-color: #b9deff;
+
+}
+.container {
+	margin-top:30px;
+	width:500px;
+    border-radius: 5px;
+    background-color: #ecf6ff;
+    padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .container, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+</style>
+<script>
+
+function goback()
+{window.history.back()
+}
+function checkStatus(){
+  
+    var complaint=document.getElementById('complaintId').value;
+    arr1={"complaint":complaint};
+     $.post("./checkstatus",arr1,
+        function(rows)
+        {
+      alert(rows.message);
+       
+        });
+   }
+ 
+
+</script>
+
+<body>
+<div class="container">
+<h1 align="center"><font size="6" face="Times New Roman" color="#000080"><b>Fill Your Details</b></font></h1>
+
+<fieldset><br><br>
+  <font size="4" face="Times New Roman" color="#000080"> Enter your complaint Id to check status:<br>
+    <input type="text" name="complaintId" id="complaintId" ><br><br>
+ </fieldset>
+ <input type="button" class="btn btn-info" onclick="goBack()" value="Cancel" id="back" >  
+  <input type="submit" value="Submit" onclick="checkStatus()" class="btn btn-info" style="float:right;">
+<br>
+
+</div>
+</body>
+</html>
